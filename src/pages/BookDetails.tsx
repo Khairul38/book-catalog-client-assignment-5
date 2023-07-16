@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 export default function ProductDetails() {
   const { id } = useParams();
 
-  const { data: book, isLoading, error } = useSingleProductsQuery(id);
+  const { data: book } = useSingleProductsQuery(id);
 
   return (
     <div className="px-10 xl:px-20 py-10">

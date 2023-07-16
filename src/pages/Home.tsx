@@ -8,7 +8,7 @@ import { useGetProductsQuery } from "@/redux/features/products/productApi";
 import Loader from "@/components/ui/Loader";
 
 export default function Home() {
-  const { data, isLoading } = useGetProductsQuery(undefined);
+  const { data } = useGetProductsQuery(undefined);
 
   return (
     <>

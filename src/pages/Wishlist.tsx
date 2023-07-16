@@ -2,7 +2,7 @@ import BookCard from "@/components/BookCard";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 import { useGetProductsQuery } from "@/redux/features/products/productApi";
 import {
   setPriceRange,
@@ -12,9 +12,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/globalTypes";
 
 export default function Wishlist() {
-  const { data, isLoading } = useGetProductsQuery(undefined);
+  const { data} = useGetProductsQuery(undefined);
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const { status, priceRange } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();

@@ -3,13 +3,12 @@ import AccordionBasic from "@/components/ui/AccordionBasic";
 // import { Label } from "@/components/ui/label";
 // import { Slider } from "@/components/ui/slider";
 // import { Switch } from "@/components/ui/switch";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 import { useGetProductsQuery } from "@/redux/features/products/productApi";
-import {
-  setPriceRange,
-  toggleState,
-} from "@/redux/features/products/productSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+// import {
+//   setPriceRange,
+// } from "@/redux/features/products/productSlice";
+import {  useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/globalTypes";
 
 const filtersData = [
@@ -56,16 +55,16 @@ const filtersData = [
 ];
 
 export default function Books() {
-  const { data, isLoading } = useGetProductsQuery(undefined);
+  const { data } = useGetProductsQuery(undefined);
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const { status, priceRange } = useAppSelector((state) => state.product);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const handleSlider = (value: number[]) => {
-    dispatch(setPriceRange(value[0]));
-  };
+  // const handleSlider = (value: number[]) => {
+  //   dispatch(setPriceRange(value[0]));
+  // };
 
   let booksData;
 

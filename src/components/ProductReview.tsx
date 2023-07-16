@@ -25,7 +25,7 @@ export default function ProductReview({ id }: IProps) {
     pollingInterval: 60000,
   });
 
-  const [postComment, options] = usePostCommentMutation();
+  const [postComment] = usePostCommentMutation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

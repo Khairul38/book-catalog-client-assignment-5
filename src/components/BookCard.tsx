@@ -1,24 +1,24 @@
 import { IBook } from "@/types/globalTypes";
-import { toast } from "./ui/use-toast";
+// import { toast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "@/redux/hooks";
-import { addToCart } from "@/redux/features/cart/cartSlice";
-import { HiHeart, HiOutlineHeart } from "react-icons/hi";
+// import { useAppDispatch } from "@/redux/hooks";
+// import { addToCart } from "@/redux/features/cart/cartSlice";
+import { HiOutlineHeart } from "react-icons/hi";
 
 interface IProps {
   book: IBook;
 }
 
 export default function BookCard({ book }: IProps) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const handleAddProduct = (book: IBook) => {
-    dispatch(addToCart(book));
-    toast({
-      description: "Product Added",
-    });
-  };
+  // const handleAddProduct = (book: IBook) => {
+  //   dispatch(addToCart(book));
+  //   toast({
+  //     description: "Product Added",
+  //   });
+  // };
   return (
     <div>
       <div className="rounded-xl h-[566px] flex flex-col justify-between p-4 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-1">

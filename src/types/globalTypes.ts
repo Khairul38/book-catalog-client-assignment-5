@@ -11,4 +11,5 @@ export interface IBook {
   wishlist: boolean;
   currentlyReading: boolean;
   finishedReading: boolean;
+  quantity?:number;
 }
