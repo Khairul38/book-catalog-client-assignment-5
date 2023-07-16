@@ -3,7 +3,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { FiSend } from "react-icons/fi";
-import { useGetCommentQuery, usePostCommentMutation } from "@/redux/features/products/productApi";
+import {
+  useGetCommentQuery,
+  usePostCommentMutation,
+} from "@/redux/features/products/productApi";
 
 // const dummyComments = [
 //   "Bhalo na",
@@ -40,7 +43,7 @@ export default function ProductReview({ id }: IProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-5">
+    <div className="max-w-7xl mx-auto mt-10">
       <form className="flex gap-5 items-center" onSubmit={handleSubmit}>
         <Textarea
           className="min-h-[30px]"

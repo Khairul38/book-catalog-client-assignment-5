@@ -1,8 +1,8 @@
 import BookCard from "@/components/BookCard";
 import AccordionBasic from "@/components/ui/AccordionBasic";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
+// import { Label } from "@/components/ui/label";
+// import { Slider } from "@/components/ui/slider";
+// import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useGetProductsQuery } from "@/redux/features/products/productApi";
 import {

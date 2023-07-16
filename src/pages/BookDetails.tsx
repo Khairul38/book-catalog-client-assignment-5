@@ -8,38 +8,33 @@ import { useParams } from "react-router-dom";
 export default function ProductDetails() {
   const { id } = useParams();
 
-  const { data: product, isLoading, error } = useSingleProductsQuery(id);
-
-  //! Temporary code, should be replaced with redux
-  // const [data, setData] = useState<IBook[]>([]);
-  // useEffect(() => {
-  //   fetch('../../public/data.json')
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
-
-  // const product = data?.find((item) => item._id === Number(id));
-
-  //! Temporary code ends here
+  const { data: book, isLoading, error } = useSingleProductsQuery(id);
 
   return (
-    <>
-      <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300">
-        <div className="w-[50%]">
-          <img src={product?.image} alt="" />
+    <div className="px-10 xl:px-20 py-10">
+      <div className="flex mx-auto items-center border-b border-gray-300 gap-12 pb-10">
+        <div className="w-[30%]">
+          <img className="w-full" src={book?.image} alt={book?.title} />
         </div>
-        <div className="w-[50%] space-y-3">
-          <h1 className="text-3xl font-semibold">{product?.name}</h1>
-          <p className="text-xl">Rating: {product?.rating}</p>
+        <div className="w-[70%] space-y-3">
+          <h1 className="text-3xl font-semibold">{book?.title}</h1>
+          <p className="text-xl">Author: {book?.author}</p>
+          <p className="text-xl">Genre: {book?.genre}</p>
+          <p className="text-xl">Publication Date: {book?.publicationDate}</p>
+          <p className="text-xl">Rating: {book?.rating}</p>
+          <p className="text-xl">Description: {book?.description}</p>
           <ul className="space-y-1 text-lg">
-            {product?.features?.map((feature: string) => (
+            {book?.features?.map((feature: string) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
-          <Button>Add to cart</Button>
+          <div className="space-x-3">
+            <Button>Edit</Button>
+            <Button>Delete</Button>
+          </div>
         </div>
       </div>
       <ProductReview id={id!} />
-    </>
+    </div>
   );
 }
