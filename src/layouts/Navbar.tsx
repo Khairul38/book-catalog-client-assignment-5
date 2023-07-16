@@ -11,7 +11,7 @@ import {
 } from "../components/ui/dropdown-menu";
 import { HiOutlineSearch } from "react-icons/hi";
 import Cart from "../components/Cart";
-import logo from "../assets/images/technet-logo.png";
+import logo from "../assets/images/book-catalog-logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -34,9 +34,9 @@ export default function Navbar() {
   return (
     <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
       <div className="h-full w-full bg-white/60">
-        <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto px-5">
+        <div className="flex items-center justify-between w-full h-full mx-auto px-10 xl:px-20">
           <div>
-            <img className="h-8" src={logo} alt="log" />
+            <img className="h-12" src={logo} alt="log" />
           </div>
           <div>
             <ul className="flex items-center">
@@ -47,7 +47,7 @@ export default function Navbar() {
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link to="/products">Products</Link>
+                  <Link to="/allBooks">All Books</Link>
                 </Button>
               </li>
               <li>
