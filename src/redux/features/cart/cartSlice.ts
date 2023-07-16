@@ -1,8 +1,8 @@
-import { IProduct } from "@/types/globalTypes";
+import { IBook } from "@/types/globalTypes";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface ICart {
-  products: IProduct[];
+  products: IBook[];
   total: number;
 }
 
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<IProduct>) => {
+    addToCart: (state, action: PayloadAction<IBook>) => {
       const existing = state.products.find(
         (product) => product._id === action.payload._id
       );
@@ -28,7 +28,7 @@ const cartSlice = createSlice({
       state.total += action.payload.price;
     },
 
-    removeOne: (state, action: PayloadAction<IProduct>) => {
+    removeOne: (state, action: PayloadAction<IBook>) => {
       const existing = state.products.find(
         (product) => product._id === action.payload._id
       );
@@ -43,7 +43,7 @@ const cartSlice = createSlice({
       state.total -= action.payload.price;
     },
 
-    removeFromCart: (state, action: PayloadAction<IProduct>) => {
+    removeFromCart: (state, action: PayloadAction<IBook>) => {
       state.products = state.products.filter(
         (product) => product._id !== action.payload._id
       );

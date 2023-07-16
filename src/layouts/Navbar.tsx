@@ -55,11 +55,11 @@ export default function Navbar() {
                   <Link to="/checkout">Checkout</Link>
                 </Button>
               </li>
-              <li>
+              {/* <li>
                 <Button variant="ghost">
                   <HiOutlineSearch size="25" />
                 </Button>
-              </li>
+              </li> */}
               <li>
                 <Cart />
               </li>
