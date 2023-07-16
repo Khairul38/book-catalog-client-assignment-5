@@ -9,13 +9,13 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from "../components/ui/dropdown-menu";
-import { HiOutlineSearch } from "react-icons/hi";
-import Cart from "../components/Cart";
 import logo from "../assets/images/book-catalog-logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { setUser } from "@/redux/features/user/userSlice";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function Navbar() {
   const { user } = useAppSelector((state) => state.user);
@@ -52,57 +52,56 @@ export default function Navbar() {
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link to="/checkout">Checkout</Link>
+                  <Link to="/wishlist">Wishlist</Link>
                 </Button>
               </li>
-              {/* <li>
-                <Button variant="ghost">
-                  <HiOutlineSearch size="25" />
-                </Button>
-              </li> */}
-              <li>
-                <Cart />
-              </li>
-              <li className="ml-5">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    {user.email ? (
-                      <>
-                        <DropdownMenuLabel>Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer">
-                          Profile
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={handleLogout}
-                          className="cursor-pointer"
-                        >
-                          Logout
-                        </DropdownMenuItem>
-                      </>
-                    ) : (
-                      <>
-                        <Link to="/login">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Login
-                          </DropdownMenuItem>
-                        </Link>
-                        <Link to="/signup">
-                          <DropdownMenuItem className="cursor-pointer">
-                            Sign up
-                          </DropdownMenuItem>
-                        </Link>
-                      </>
+              {!user.email ? (
+                <>
+                  <Link
+                    to="/login"
+                    className={cn(
+                      buttonVariants({ variant: "ghost", size: "sm" })
                     )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </li>
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/login"
+                    className={cn(
+                      buttonVariants({ variant: "ghost", size: "sm" })
+                    )}
+                  >
+                    Signup
+                  </Link>
+                </>
+              ) : (
+                <li className="ml-5">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="outline-none">
+                      <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="cursor-pointer">
+                        Profile
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer">
+                        Add new book
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={handleLogout}
+                        className="cursor-pointer"
+                      >
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </li>
+              )}
             </ul>
           </div>
         </div>

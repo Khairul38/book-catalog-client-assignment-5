@@ -1,5 +1,4 @@
 import BookCard from "@/components/BookCard";
-import AccordionBasic from "@/components/ui/AccordionBasic";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -12,50 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/globalTypes";
 
-const filtersData = [
-  {
-    title: "Genre",
-    options: [
-      "Computer and Programming",
-      "Motivational",
-      "Self-Development",
-      "Fiction",
-      "Islamic",
-      "Fantasy romance",
-      "Science Fiction",
-      "Novels",
-      "Liberation War",
-      "Story",
-      "Romantic, Novels",
-      "Poetry",
-      "Essay",
-    ],
-  },
-  {
-    title: "Publication Year",
-    options: [
-      "2022",
-      "2018",
-      "2017",
-      "2016",
-      "2009",
-      "2008",
-      "1998",
-      "1995",
-      "1985",
-      "1976",
-      "1948",
-      "1935",
-      "1929",
-      "1922",
-      "1920",
-      "1903",
-      "1866",
-    ],
-  },
-];
-
-export default function Books() {
+export default function Wishlist() {
   const { data, isLoading } = useGetProductsQuery(undefined);
 
   const { toast } = useToast();
@@ -84,13 +40,13 @@ export default function Books() {
 
   return (
     <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20">
-      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
+      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start sticky top-[84px] h-[calc(100vh-100px)]">
         {/* Search form */}
         <div className="mb-5">
           <form className="relative">
             <input
               // onChange={debounce(handleSearch, 300)}
-              className="rounded-md w-full pl-9 py-1 border border-slate-200 hover:border-slate-300 focus:border-violet-300 focus:ring-violet-300"
+              className="rounded-md w-full pl-9 py-1 border-2 border-slate-300 focus:border-slate-400 focus:outline-none"
               type="search"
               placeholder="Search book"
             />
@@ -111,33 +67,9 @@ export default function Books() {
             </button>
           </form>
         </div>
-
         {/* Filters */}
-        <div className="">
-          <h1 className="text-xl uppercase">Filters</h1>
-          <div className="mt-3 space-y-2 max-h-[calc(100vh-229px)] overflow-auto scrollbar-none">
-            {filtersData.map((fd) => (
-              <AccordionBasic key={fd.title} title={fd.title}>
-                <ul className="space-y-2">
-                  {fd.options.map((o) => (
-                    <li key={o}>
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="h-4 w-4 border border-gray-500 rounded text-violet-500 focus:ring-transparent cursor-pointer"
-                        />
-                        <span className="text-sm text-slate-600 font-medium ml-2">
-                          {o}
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionBasic>
-            ))}
-          </div>
-        </div>
-        {/* <div>
+
+        <div>
           <h1 className="text-2xl uppercase">Availability</h1>
           <div
             className="flex items-center space-x-2 mt-3"
@@ -159,7 +91,7 @@ export default function Books() {
             />
           </div>
           <div>From 0$ To {priceRange}$</div>
-        </div> */}
+        </div>
       </div>
       <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20 pt-5">
         {booksData?.map((book: IBook) => (
