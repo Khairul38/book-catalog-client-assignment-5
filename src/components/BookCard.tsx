@@ -30,7 +30,7 @@ export default function BookCard({ book }: IProps) {
         </Link>
         <p className="line-clamp-3">Author: {book?.author}</p>
         <p className="line-clamp-3">Genre: {book?.genre}</p>
-        <p>Publication Date: {book?.publicationDate}</p>
+        <p>Publication Year: {book?.publicationYear}</p>
         <p>Rating: {book?.rating}</p>
         {/* <p className="line-clamp-3">Price: ${book?.price}</p> */}
         <div className="flex items-center justify-between gap-3">
