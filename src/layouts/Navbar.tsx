@@ -11,24 +11,18 @@ import {
 } from "../components/ui/dropdown-menu";
 import logo from "../assets/images/book-catalog-logo.png";
 import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import { setUser } from "@/redux/features/user/userSlice";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { userLoggedOut } from "@/redux/features/auth/authSlice";
+import avatar from "../assets/images/avatar-04.jpg";
 
 export default function Navbar() {
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch(setUser(null));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(userLoggedOut());
+    localStorage.clear();
   };
 
   return (
@@ -55,7 +49,7 @@ export default function Navbar() {
                   <Link to="/wishlist">Wishlist</Link>
                 </Button>
               </li>
-              {!user.email ? (
+              {!user?.email ? (
                 <>
                   <Link
                     to="/login"
@@ -79,19 +73,21 @@ export default function Navbar() {
                   <DropdownMenu>
                     <DropdownMenuTrigger className="outline-none">
                       <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarImage src={avatar} />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuLabel>Account</DropdownMenuLabel>
+                      <DropdownMenuLabel>{`${user.name.firstName} ${user.name.lastName}`}</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="cursor-pointer">
                         Profile
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
-                        Add new book
-                      </DropdownMenuItem>
+                      <Link to="/add-book">
+                        <DropdownMenuItem className="cursor-pointer">
+                          Add new book
+                        </DropdownMenuItem>
+                      </Link>
                       <DropdownMenuItem
                         onClick={handleLogout}
                         className="cursor-pointer"

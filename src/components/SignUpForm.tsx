@@ -9,11 +9,11 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useSignupMutation } from "@/redux/features/auth/authApi";
-import { toast } from "./ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "./ui/Loader";
 import { notify } from "./ui/Toastify";
+import useAuth from "@/hooks/useAuth";
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -35,16 +35,26 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
     formState: { errors },
   } = useForm<SignupFormInputs>();
 
+  const isLoggedIn = useAuth();
+
+  const location = useLocation();
   const navigate = useNavigate();
 
+  const from = location.state?.from?.pathname || "/";
+
   useEffect(() => {
+    if (isLoggedIn) {
+      navigate(from, { replace: true });
+    }
     if (resError) {
       notify("error", (resError as any)?.error);
     }
     if (data?.data?.accessToken) {
-      navigate("/");
+      notify("success", "User signup successfully");
+      navigate(from, { replace: true });
+      // navigate("/");
     }
-  }, [data, resError, navigate]);
+  }, [data, resError]);
 
   const onSubmit = (data: SignupFormInputs) => {
     console.log(data);
@@ -69,27 +79,35 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="firstName">
+              First Name
+            </Label>
             <Input
               id="firstName"
               placeholder="First name"
-              type="name"
+              type="text"
               autoCapitalize="none"
               autoComplete="first name"
               autoCorrect="off"
               {...register("firstName", { required: "First name is required" })}
             />
+            {errors.firstName && <p>{errors.firstName.message}</p>}
+            <Label className="sr-only" htmlFor="name">
+              Last Name
+            </Label>
             <Input
               id="lastName"
               placeholder="Last name"
-              type="name"
+              type="text"
               autoCapitalize="none"
               autoComplete="last name"
               autoCorrect="off"
               {...register("lastName", { required: "Last name is required" })}
             />
-            <Label className="sr-only" htmlFor="email">
+            {errors.lastName && <p>{errors.lastName.message}</p>}
+            {/* <Label className="sr-only" htmlFor="email">
               Email
-            </Label>
+            </Label> */}
             <Input
               id="email"
               placeholder="name@example.com"

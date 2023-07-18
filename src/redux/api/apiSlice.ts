@@ -18,12 +18,14 @@ export const apiSlice = createApi({
   baseQuery: async (args, api, extraOptions) => {
     const result = await baseQuery(args, api, extraOptions);
 
+    console.log(result);
+
     if (result?.error?.status === 401 || result?.error?.status === 404) {
       api.dispatch(userLoggedOut());
       localStorage.clear();
     }
     return result;
   },
-  tagTypes: ["reviews"],
+  tagTypes: ["reviews", "book", "books"],
   endpoints: () => ({}),
 });

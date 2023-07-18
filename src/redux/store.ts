@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import logger from "./middlewares/logger";
-import cartReducer from "./features/cart/cartSlice";
+import cartReducer from "./features/wishlist/wishlistSlice";
 import bookReducer from "./features/book/bookSlice";
 import { apiSlice } from "./api/apiSlice";
 import userReducer from "./features/user/userSlice";

@@ -5,8 +5,8 @@ const Loader = ({
   color,
 }: {
   className?: string;
-  w?: number;
-  h?: number;
+  w?: string;
+  h?: string;
   color?: string;
 }) => {
   return (

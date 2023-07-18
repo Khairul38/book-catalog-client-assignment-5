@@ -8,7 +8,7 @@ import { useGetBooksQuery } from "@/redux/features/book/bookApi";
 import Loader from "@/components/ui/Loader";
 
 export default function Home() {
-  const { data } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery({});
 
   return (
     <>

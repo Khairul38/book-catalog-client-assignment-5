@@ -4,43 +4,62 @@ import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { FiSend } from "react-icons/fi";
 import {
-  useGetCommentQuery,
+  useGetReviewsQuery,
   usePostReviewMutation,
 } from "@/redux/features/book/bookApi";
+import { IReview } from "@/types/globalTypes";
+import Loader from "./ui/Loader";
+import avatar from "../assets/images/avatar-04.jpg";
+import { useAppSelector } from "@/redux/reduxHooks";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import PrivateRoute from "@/routes/PrivateRoute";
 
-// const dummyComments = [
-//   "Bhalo na",
-//   "Ki shob ghori egula??",
-//   "Eta kono product holo ??",
-//   "200 taka dibo, hobe ??",
-// ];
 interface IProps {
   id: string;
 }
 
 export default function ProductReview({ id }: IProps) {
   const [inputValue, setInputValue] = useState<string>("");
-  const { data } = useGetCommentQuery(id, {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // const from = location.state?.from?.pathname || "/";
+
+  const { user } = useAppSelector((state) => state.auth);
+
+  const { data, isLoading } = useGetReviewsQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 60000,
   });
 
-  const [postComment] = usePostReviewMutation();
+  console.log(data);
+
+  const [postReview] = usePostReviewMutation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const commentData = {
-      id: id,
-      data: { comment: inputValue },
-    };
-    postComment(commentData);
-    setInputValue("");
+    if (user) {
+      const reviewData = {
+        id: id,
+        data: {
+          userName: `${user.name.firstName} ${user.name.lastName}`,
+          userEmail: user.email,
+          message: inputValue,
+        },
+      };
+      postReview(reviewData);
+      setInputValue("");
+    } else {
+      navigate("/login", { state: { from: location }, replace: true });
+    }
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(event.target.value);
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="max-w-7xl mx-auto mt-10">
@@ -58,15 +77,23 @@ export default function ProductReview({ id }: IProps) {
         </Button>
       </form>
       <div className="mt-10">
-        {data?.comments?.map((comment: string, index: number) => (
-          <div key={index} className="flex gap-3 items-center mb-5">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <p>{comment}</p>
-          </div>
-        ))}
+        {[...data.data]
+          .sort(
+            (a: IReview, b: IReview) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .map((review: IReview, index: number) => (
+            <div key={index} className="flex gap-3 items-center mb-5">
+              <Avatar>
+                <AvatarImage src={avatar} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold">{review.userName}</p>
+                <p>{review.message}</p>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

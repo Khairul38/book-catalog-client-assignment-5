@@ -1,15 +1,24 @@
+export interface IReview {
+  userName: string;
+  userEmail: string;
+  message: string;
+  _id: string;
+  createdAt: string ;
+  updatedAt: string ;
+}
+
 export interface IBook {
   _id?: string;
   title: string;
   author: string;
   genre: string;
-  publicationDate: string;
-  description: string;
+  publicationYear: string;
   image: string;
+  description: string;
   price: number;
   rating: number;
-  wishlist: boolean;
-  currentlyReading: boolean;
-  finishedReading: boolean;
-  quantity?:number;
+  postedBy: string;
+  reviews?: IReview[];
+  createdAt?: string;
+  updatedAt?: string;
 }

@@ -10,6 +10,7 @@ import { useGetBooksQuery } from "@/redux/features/book/bookApi";
 // } from "@/redux/features/products/productSlice";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
+import { useState } from "react";
 
 const filtersData = [
   {
@@ -55,9 +56,32 @@ const filtersData = [
 ];
 
 export default function Books() {
-  const { data } = useGetBooksQuery(undefined);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [genre, setGenre] = useState<string>("");
+  const [publicationYear, setPublicationYear] = useState<string>("");
+
+  console.log(searchTerm, genre, publicationYear);
+
+  const { data } = useGetBooksQuery({ searchTerm, genre, publicationYear });
 
   // const { toast } = useToast();
+
+  const debounce = <T extends (...args: any[]) => void>(
+    fn: T,
+    delay: number
+  ) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   const { status, priceRange } = useAppSelector((state) => state.book);
   // const dispatch = useAppDispatch();
@@ -88,7 +112,7 @@ export default function Books() {
         <div className="mb-5">
           <form className="relative">
             <input
-              // onChange={debounce(handleSearch, 300)}
+              onChange={debounce(handleSearch, 300)}
               className="rounded-md w-full pl-9 py-1 border border-slate-200 hover:border-slate-300 focus:border-violet-300 focus:ring-violet-300"
               type="search"
               placeholder="Search book"
@@ -122,6 +146,22 @@ export default function Books() {
                     <li key={o}>
                       <label className="flex items-center cursor-pointer">
                         <input
+                          checked={
+                            (fd.title === "Genre" && genre === o) ||
+                            (fd.title === "Publication Year" &&
+                              publicationYear === o)
+                          }
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              fd.title === "Genre"
+                                ? setGenre(o)
+                                : setPublicationYear(o);
+                            } else {
+                              fd.title === "Genre"
+                                ? setGenre("")
+                                : setPublicationYear("");
+                            }
+                          }}
                           type="checkbox"
                           className="h-4 w-4 border border-gray-500 rounded text-violet-500 focus:ring-transparent cursor-pointer"
                         />

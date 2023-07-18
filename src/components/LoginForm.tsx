@@ -8,10 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { loginUser } from "@/redux/features/user/userSlice";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { notify } from "./ui/Toastify";
+import Loader from "./ui/Loader";
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -27,21 +29,33 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const dispatch = useAppDispatch();
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  const [login, { data, isLoading, error: resError }] = useLoginMutation();
+  console.log(resError);
+  const isLoggedIn = useAuth();
 
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
-    dispatch(loginUser({ email: data.email, password: data.password }));
+    login({ email: data.email, password: data.password });
   };
 
   useEffect(() => {
-    if (user.email && !isLoading) {
-      navigate("/");
+    if (isLoggedIn) {
+      navigate(from, { replace: true });
     }
-  }, [user.email, isLoading]);
+    if (resError) {
+      notify("error", (resError as any)?.data?.message);
+    }
+    if (data?.data?.accessToken) {
+      notify("success", "User login successfully");
+      navigate(from, { replace: true });
+      // navigate("/");
+    }
+  }, [data, resError]);
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -71,7 +85,9 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
             />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <Button>Login with email</Button>
+          <Button>
+            {isLoading ? <Loader color="text-white" /> : "Login with email"}
+          </Button>
         </div>
       </form>
       <div className="relative">
