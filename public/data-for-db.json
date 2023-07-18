@@ -5,10 +5,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Programming-er-Choddogusti-By-Jhonkar-Mahbub-216x296.jpg",
     "author": "JHANKAR MAHBUB",
     "genre": "Computer and Programming Books",
-    "publicationDate": "2018",
+    "publicationYear": "2018",
     "reviews": [],
     "rating": 5,
-    "price": "50"
+    "price": 50
   },
   {
     "title": "Recharge your down battery",
@@ -16,10 +16,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Recharge-your-down-battery-by-Jhankar-Mahbub-232x296.jpg",
     "author": "JHANKAR MAHBUB",
     "genre": "Motivational Books",
-    "publicationDate": "2018",
+    "publicationYear": "2018",
     "reviews": [],
     "rating": 5,
-    "price": "40"
+    "price": 40
   },
   {
     "title": "Atomic Habits",
@@ -27,10 +27,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/03/Atomic-Habits-Cover-Image-280x416.png",
     "author": "James Clear",
     "genre": "Self-Development",
-    "publicationDate": "2022",
+    "publicationYear": "2022",
     "reviews": [],
     "rating": 5,
-    "price": "15"
+    "price": 15
   },
   {
     "title": "Dopamine Detox",
@@ -38,10 +38,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/02/Dopamine-Detox.jpg-280x409.jpg",
     "author": "Thibaut Meurisse",
     "genre": "Self-Development",
-    "publicationDate": "2022",
+    "publicationYear": "2022",
     "reviews": [],
     "rating": 5,
-    "price": "20"
+    "price": 20
   },
   {
     "title": "A Christmas Carol",
@@ -49,10 +49,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/03/A-Christmas-Carol-by-Charles-Dickens.jpg",
     "author": "Charles Dickens",
     "genre": "Fiction",
-    "publicationDate": "1995",
+    "publicationYear": "1995",
     "reviews": [],
     "rating": 4.5,
-    "price": "10"
+    "price": 10
   },
   {
     "title": "Paradoxical Sajid",
@@ -60,10 +60,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Paradoxical-Sajid-1-262x430.jpg",
     "author": "ARIF AZAD",
     "genre": "Islamic Books",
-    "publicationDate": "2017",
+    "publicationYear": "2017",
     "reviews": [],
     "rating": 5,
-    "price": "13"
+    "price": 13
   },
   {
     "title": "Twilight",
@@ -71,10 +71,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/02/Twilight-190x296.jpg",
     "author": "STEPHENIE MEYER",
     "genre": "Fantasy romance",
-    "publicationDate": "2009",
+    "publicationYear": "2009",
     "reviews": [],
     "rating": 4.5,
-    "price": "10"
+    "price": 10
   },
   {
     "title": "Alien Invasion",
@@ -82,10 +82,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/03/Alien-Invasion-By-Christopher-Pike-197x296.jpg",
     "author": "Christopher Pike",
     "genre": "Science Fiction",
-    "publicationDate": "1998",
+    "publicationYear": "1998",
     "reviews": [],
     "rating": 4.5,
-    "price": "12"
+    "price": 12
   },
   {
     "title": "Wings Of Fire",
@@ -93,10 +93,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Wings-Of-Fire-By-A.P.J.-Abdul-Kalam-273x430.jpg",
     "author": "A.P.J. ABDUL KALAM",
     "genre": "Motivational",
-    "publicationDate": "2008",
+    "publicationYear": "2008",
     "reviews": [],
     "rating": 5,
-    "price": "20"
+    "price": 20
   },
   {
     "title": "Chokher Bali",
@@ -104,10 +104,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Chokher-Bali-By-Rabindranath-Tagore1.jpg",
     "author": "RABINDRANATH TAGORE",
     "genre": "Novels",
-    "publicationDate": "1903",
+    "publicationYear": "1903",
     "reviews": [],
     "rating": 5,
-    "price": "20"
+    "price": 20
   },
   {
     "title": "Aguner Poroshmoni",
@@ -115,10 +115,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/dsdsd-197x296.jpg",
     "author": "HUMAYUN AHMED",
     "genre": "Liberation War",
-    "publicationDate": "1995",
+    "publicationYear": "1995",
     "reviews": [],
     "rating": 5,
-    "price": "25"
+    "price": 25
   },
   {
     "title": "Amar Ache Jol",
@@ -126,10 +126,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Amar-Ache-Jol-by-Humayun-Ahmed-200x296.jpg",
     "author": "HUMAYUN AHMED",
     "genre": "Novels",
-    "publicationDate": "1985",
+    "publicationYear": "1985",
     "reviews": [],
     "rating": 5,
-    "price": "30"
+    "price": 30
   },
   {
     "title": "Grihodaho",
@@ -137,10 +137,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Grihodaho-By-Sarat-Chandra-Chattopadhyay1.jpg",
     "author": "SARAT CHANDRA CHATTOPADHYAY",
     "genre": "Novels",
-    "publicationDate": "2016",
+    "publicationYear": "2016",
     "reviews": [],
     "rating": 4.5,
-    "price": "10"
+    "price": 10
   },
   {
     "title": "Putul Nacher Itikotha",
@@ -148,10 +148,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/02/Putul-Nacher-Itikotha-By-Manik-Bandopadhyay-179x296.jpg",
     "author": "MANIK BANDOPADHYAY",
     "genre": "Novels",
-    "publicationDate": "1948",
+    "publicationYear": "1948",
     "reviews": [],
     "rating": 4.5,
-    "price": "5"
+    "price": 5
   },
   {
     "title": "Atashi Mami",
@@ -159,10 +159,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/02/Atashi-Mami-206x296.jpg",
     "author": "MANIK BANDOPADHYAY",
     "genre": "Story Books",
-    "publicationDate": "1935",
+    "publicationYear": "1935",
     "reviews": [],
     "rating": 4.5,
-    "price": "5"
+    "price": 5
   },
   {
     "title": "Kapalkundola",
@@ -170,10 +170,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Kopalkundola-By-Bankim-Chandra-Chattopadhyay.jpg",
     "author": "BANKIM CHANDRA CHATTOPADHYAY",
     "genre": "Romantic, Novels",
-    "publicationDate": "1866",
+    "publicationYear": "1866",
     "reviews": [],
     "rating": 5,
-    "price": "15"
+    "price": 15
   },
   {
     "title": "Bisher Banshi",
@@ -181,10 +181,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/image-41-209x296.jpg",
     "author": " KAZI NAZRUL ISLAM",
     "genre": "Poetry",
-    "publicationDate": "1920",
+    "publicationYear": "1920",
     "reviews": [],
     "rating": 5,
-    "price": "20"
+    "price": 20
   },
   {
     "title": "Agni Bina",
@@ -192,10 +192,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Agni-Bina-By-Kazi-Nazrul-Islam-270x430.jpg",
     "author": "KAZI NAZRUL ISLAM",
     "genre": "Poetry",
-    "publicationDate": "1922",
+    "publicationYear": "1922",
     "reviews": [],
     "rating": 5,
-    "price": "22"
+    "price": 22
   },
   {
     "title": "Shesher Kobita",
@@ -203,10 +203,10 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/02/shesher-kobita-by-rabindranath-tagore1.jpg",
     "author": "RABINDRANATH TAGORE",
     "genre": "Novels",
-    "publicationDate": "1929",
+    "publicationYear": "1929",
     "reviews": [],
     "rating": 4.5,
-    "price": "12"
+    "price": 12
   },
   {
     "title": "Lal Nil Dipabali",
@@ -214,9 +214,9 @@
     "image": "https://bdebooks.com/wp-content/uploads/2023/01/Lal-Nil-Dipabali-By-Humayun-Azad-199x296.jpg",
     "author": "HUMAYUN AZAD",
     "genre": "Essay",
-    "publicationDate": "1976",
+    "publicationYear": "1976",
     "reviews": [],
     "rating": 4,
-    "price": "5"
+    "price": 5
   }
 ]

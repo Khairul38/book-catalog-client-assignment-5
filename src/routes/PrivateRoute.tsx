@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/reduxHooks";
 import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 

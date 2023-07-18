@@ -8,28 +8,60 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { createUser } from "@/redux/features/user/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useSignupMutation } from "@/redux/features/auth/authApi";
+import { toast } from "./ui/use-toast";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Loader from "./ui/Loader";
+import { notify } from "./ui/Toastify";
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
 interface SignupFormInputs {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 export function SignupForm({ className, ...props }: UserAuthFormProps) {
+  const [signup, { data, isLoading, error: resError }] = useSignupMutation();
+
+  console.log(data, resError);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignupFormInputs>();
 
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (resError) {
+      notify("error", (resError as any)?.error);
+    }
+    if (data?.data?.accessToken) {
+      navigate("/");
+    }
+  }, [data, resError, navigate]);
 
   const onSubmit = (data: SignupFormInputs) => {
     console.log(data);
-    dispatch(createUser({ email: data.email, password: data.password }));
+
+    if (data.password !== data.confirmPassword) {
+      console.log("first");
+      notify("error", "Password do not match");
+    } else {
+      signup({
+        name: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
+        email: data.email,
+        password: data.password,
+      });
+    }
   };
 
   return (
@@ -37,6 +69,24 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
+            <Input
+              id="firstName"
+              placeholder="First name"
+              type="name"
+              autoCapitalize="none"
+              autoComplete="first name"
+              autoCorrect="off"
+              {...register("firstName", { required: "First name is required" })}
+            />
+            <Input
+              id="lastName"
+              placeholder="Last name"
+              type="name"
+              autoCapitalize="none"
+              autoComplete="last name"
+              autoCorrect="off"
+              {...register("lastName", { required: "Last name is required" })}
+            />
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
@@ -52,7 +102,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
             {errors.email && <p>{errors.email.message}</p>}
             <Input
               id="password"
-              placeholder="your password"
+              placeholder="Your password"
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
@@ -60,14 +110,19 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
             />
             {errors.password && <p>{errors.password.message}</p>}
             <Input
-              id="password"
-              placeholder="confirm password"
+              id="confirmPassword"
+              placeholder="Confirm password"
               type="password"
               autoCapitalize="none"
               autoCorrect="off"
+              {...register("confirmPassword", {
+                required: "Confirm Password is required",
+              })}
             />
           </div>
-          <Button>Create Account</Button>
+          <Button>
+            {isLoading ? <Loader color="text-white" /> : "Create Account"}
+          </Button>
         </div>
       </form>
       <div className="relative">

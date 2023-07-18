@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { loginUser } from "@/redux/features/user/userSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

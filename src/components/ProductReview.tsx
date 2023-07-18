@@ -5,8 +5,8 @@ import { Textarea } from "./ui/textarea";
 import { FiSend } from "react-icons/fi";
 import {
   useGetCommentQuery,
-  usePostCommentMutation,
-} from "@/redux/features/products/productApi";
+  usePostReviewMutation,
+} from "@/redux/features/book/bookApi";
 
 // const dummyComments = [
 //   "Bhalo na",
@@ -25,7 +25,7 @@ export default function ProductReview({ id }: IProps) {
     pollingInterval: 60000,
   });
 
-  const [postComment] = usePostCommentMutation();
+  const [postComment] = usePostReviewMutation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

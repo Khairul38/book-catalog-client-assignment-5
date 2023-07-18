@@ -10,7 +10,7 @@ import {
   DropdownMenuContent,
 } from "../components/ui/dropdown-menu";
 import logo from "../assets/images/book-catalog-logo.png";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { setUser } from "@/redux/features/user/userSlice";
@@ -66,7 +66,7 @@ export default function Navbar() {
                     Login
                   </Link>
                   <Link
-                    to="/login"
+                    to="/signup"
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "sm" })
                     )}

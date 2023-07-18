@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import Footer from "@/layouts/Footer";
 import BookCard from "@/components/BookCard";
 import { IBook } from "@/types/globalTypes";
-import { useGetProductsQuery } from "@/redux/features/products/productApi";
+import { useGetBooksQuery } from "@/redux/features/book/bookApi";
 import Loader from "@/components/ui/Loader";
 
 export default function Home() {
-  const { data } = useGetProductsQuery(undefined);
+  const { data } = useGetBooksQuery(undefined);
 
   return (
     <>

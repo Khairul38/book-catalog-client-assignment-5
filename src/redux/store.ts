@@ -1,23 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import logger from "./middlewares/logger";
 import cartReducer from "./features/cart/cartSlice";
-import productReducer from "./features/products/productSlice";
-import { api } from "./api/apiSlice";
+import bookReducer from "./features/book/bookSlice";
+import { apiSlice } from "./api/apiSlice";
 import userReducer from "./features/user/userSlice";
+import authSliceReducer from "./features/auth/authSlice";
 // import { createLogger } from "redux-logger";
 
 // const logger = createLogger();
 
 export const store = configureStore({
   reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authSliceReducer,
+    book: bookReducer,
     cart: cartReducer,
-    product: productReducer,
     user: userReducer,
-    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
-  // devTools: process.env.NODE_ENV !== "production",
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;

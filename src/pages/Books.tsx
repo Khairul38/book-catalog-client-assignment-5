@@ -4,11 +4,11 @@ import AccordionBasic from "@/components/ui/AccordionBasic";
 // import { Slider } from "@/components/ui/slider";
 // import { Switch } from "@/components/ui/switch";
 // import { useToast } from "@/components/ui/use-toast";
-import { useGetProductsQuery } from "@/redux/features/products/productApi";
+import { useGetBooksQuery } from "@/redux/features/book/bookApi";
 // import {
 //   setPriceRange,
 // } from "@/redux/features/products/productSlice";
-import {  useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 
 const filtersData = [
@@ -55,11 +55,11 @@ const filtersData = [
 ];
 
 export default function Books() {
-  const { data } = useGetProductsQuery(undefined);
+  const { data } = useGetBooksQuery(undefined);
 
   // const { toast } = useToast();
 
-  const { status, priceRange } = useAppSelector((state) => state.product);
+  const { status, priceRange } = useAppSelector((state) => state.book);
   // const dispatch = useAppDispatch();
 
   // const handleSlider = (value: number[]) => {

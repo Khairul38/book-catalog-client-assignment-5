@@ -3,20 +3,17 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 // import { useToast } from "@/components/ui/use-toast";
-import { useGetProductsQuery } from "@/redux/features/products/productApi";
-import {
-  setPriceRange,
-  toggleState,
-} from "@/redux/features/products/productSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useGetBooksQuery } from "@/redux/features/book/bookApi";
+import { setPriceRange, toggleState } from "@/redux/features/book/bookSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 
 export default function Wishlist() {
-  const { data} = useGetProductsQuery(undefined);
+  const { data } = useGetBooksQuery(undefined);
 
   // const { toast } = useToast();
 
-  const { status, priceRange } = useAppSelector((state) => state.product);
+  const { status, priceRange } = useAppSelector((state) => state.book);
   const dispatch = useAppDispatch();
 
   const handleSlider = (value: number[]) => {
