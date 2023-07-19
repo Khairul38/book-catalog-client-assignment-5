@@ -11,14 +11,13 @@ import { IReview } from "@/types/globalTypes";
 import Loader from "./ui/Loader";
 import avatar from "../assets/images/avatar-04.jpg";
 import { useAppSelector } from "@/redux/reduxHooks";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import PrivateRoute from "@/routes/PrivateRoute";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IProps {
   id: string;
 }
 
-export default function ProductReview({ id }: IProps) {
+export default function BookReview({ id }: IProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const location = useLocation();
   const navigate = useNavigate();

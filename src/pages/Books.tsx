@@ -1,14 +1,7 @@
 import BookCard from "@/components/BookCard";
 import AccordionBasic from "@/components/ui/AccordionBasic";
-// import { Label } from "@/components/ui/label";
-// import { Slider } from "@/components/ui/slider";
-// import { Switch } from "@/components/ui/switch";
-// import { useToast } from "@/components/ui/use-toast";
+import Loader from "@/components/ui/Loader";
 import { useGetBooksQuery } from "@/redux/features/book/bookApi";
-// import {
-//   setPriceRange,
-// } from "@/redux/features/products/productSlice";
-import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 import { useState } from "react";
 
@@ -60,11 +53,13 @@ export default function Books() {
   const [genre, setGenre] = useState<string>("");
   const [publicationYear, setPublicationYear] = useState<string>("");
 
-  console.log(searchTerm, genre, publicationYear);
+  const { data, isLoading } = useGetBooksQuery({
+    searchTerm,
+    genre,
+    publicationYear,
+  });
 
-  const { data } = useGetBooksQuery({ searchTerm, genre, publicationYear });
-
-  // const { toast } = useToast();
+  console.log(searchTerm, genre, publicationYear, data);
 
   const debounce = <T extends (...args: any[]) => void>(
     fn: T,
@@ -83,30 +78,19 @@ export default function Books() {
     setSearchTerm(e.target.value);
   };
 
-  const { status, priceRange } = useAppSelector((state) => state.book);
-  // const dispatch = useAppDispatch();
-
-  // const handleSlider = (value: number[]) => {
-  //   dispatch(setPriceRange(value[0]));
-  // };
-
-  let booksData;
-
-  if (status) {
-    booksData = data?.data?.filter(
-      (item: { status: boolean; price: number }) =>
-        item.status === true && item.price < priceRange
-    );
-  } else if (priceRange > 0) {
-    booksData = data?.data?.filter(
-      (item: { price: number }) => item.price < priceRange
-    );
-  } else {
-    booksData = data?.data;
+  if (isLoading) {
+    return <Loader />;
   }
 
+  // if (data?.data.length === 0) {
+  //   return (
+  //     <p className="text-2xl my-32 font-semibold text-center">
+  //       There is no book. Please add new book
+  //     </p>
+  //   );
+  // }
   return (
-    <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20">
+    <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20 pt-5">
       <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
         {/* Search form */}
         <div className="mb-5">
@@ -200,11 +184,17 @@ export default function Books() {
           <div>From 0$ To {priceRange}$</div>
         </div> */}
       </div>
-      <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20 pt-5">
-        {booksData?.map((book: IBook) => (
-          <BookCard book={book} key={book._id} />
-        ))}
-      </div>
+      {data?.data.length === 0 ? (
+        <p className="col-span-9 text-2xl my-32 font-semibold text-center">
+          There is no book. Please add new book
+        </p>
+      ) : (
+        <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20">
+          {data?.data?.map((book: IBook) => (
+            <BookCard book={book} key={book._id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

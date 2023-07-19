@@ -1,4 +1,6 @@
-import ProductReview from "@/components/ProductReview";
+import ProductReview from "@/components/BookReview";
+import { UpdateDropdown } from "@/components/UpdateDropdown";
+import AccordionBasic from "@/components/ui/AccordionBasic";
 import Loader from "@/components/ui/Loader";
 import { notify } from "@/components/ui/Toastify";
 import { Button } from "@/components/ui/button";
@@ -6,18 +8,30 @@ import {
   useDeleteBookMutation,
   useGetSingleBookQuery,
 } from "@/redux/features/book/bookApi";
+import { useGetSingleWishlistQuery } from "@/redux/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/redux/reduxHooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { IBook } from "@/types/globalTypes";
 // import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+const options = [
+  "Wishlisted",
+  "Reading soon",
+  "Currently reading",
+  "Finished reading",
+];
 
 export default function BookDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [status, setStatus] = useState<string>("");
+
   const { user } = useAppSelector((state) => state.auth);
+
+  const { data: wishlisted } = useGetSingleWishlistQuery(id);
 
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [deleteBook, { isLoading: deleteLoading, isSuccess }] =
@@ -26,6 +40,8 @@ export default function BookDetails() {
   const handleDelete = () => {
     deleteBook(id);
   };
+
+  console.log(wishlisted);
 
   useEffect(() => {
     if (isSuccess) {
@@ -51,11 +67,19 @@ export default function BookDetails() {
           <p className="text-xl">Author: {data?.data?.author}</p>
           <p className="text-xl">Genre: {data?.data?.genre}</p>
           <p className="text-xl">
-            Publication Date: {data?.data?.publicationDate}
+            Publication Year: {data?.data?.publicationYear}
           </p>
           <p className="text-xl">Rating: {data?.data?.rating}</p>
           <p className="text-xl">Description: {data?.data?.description}</p>
-          <div className="space-x-3">
+          {user && wishlisted?.data?.status && (
+            <p className="text-xl">
+              Status:{" "}
+              <span className="text-violet-500 font-semibold">
+                {wishlisted?.data?.status}
+              </span>
+            </p>
+          )}
+          <div className="flex space-x-3 pt-2">
             {data?.data?.postedBy === user?._id && (
               <>
                 <Button
@@ -72,6 +96,13 @@ export default function BookDetails() {
                   {deleteLoading ? <Loader color="text-white" /> : "Delete"}
                 </Button>
               </>
+            )}
+            {wishlisted?.data?.status && (
+              <UpdateDropdown
+                options={options}
+                status={wishlisted?.data?.status}
+                wishlistId={wishlisted?.data?._id}
+              />
             )}
           </div>
         </div>

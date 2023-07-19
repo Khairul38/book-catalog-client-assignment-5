@@ -1,49 +1,76 @@
 import BookCard from "@/components/BookCard";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
-// import { useToast } from "@/components/ui/use-toast";
-import { useGetBooksQuery } from "@/redux/features/book/bookApi";
-import { setPriceRange, toggleState } from "@/redux/features/book/bookSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/reduxHooks";
-import { IBook } from "@/types/globalTypes";
+import AccordionBasic from "@/components/ui/AccordionBasic";
+import Loader from "@/components/ui/Loader";
+import { useGetWishlistByUserQuery } from "@/redux/features/wishlist/wishlistApi";
+import { IBook, IUser } from "@/types/globalTypes";
+import { useState } from "react";
+
+interface IWishlist {
+  _id: string;
+  book: IBook;
+  user: IUser;
+  status: string;
+}
+
+const filtersData = [
+  {
+    title: "Status",
+    options: [
+      "Wishlisted",
+      "Reading soon",
+      "Currently reading",
+      "Finished reading",
+    ],
+  },
+];
 
 export default function Wishlist() {
-  const { data } = useGetBooksQuery(undefined);
+  // const [searchTerm, setSearchTerm] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  // const [publicationYear, setPublicationYear] = useState<string>("");
 
-  // const { toast } = useToast();
+  const { data, isLoading } = useGetWishlistByUserQuery({ status });
 
-  const { status, priceRange } = useAppSelector((state) => state.book);
-  const dispatch = useAppDispatch();
+  console.log(data);
 
-  const handleSlider = (value: number[]) => {
-    dispatch(setPriceRange(value[0]));
-  };
+  // const debounce = <T extends (...args: any[]) => void>(
+  //   fn: T,
+  //   delay: number
+  // ) => {
+  //   let timeoutId: NodeJS.Timeout;
+  //   return (...args: Parameters<T>) => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       fn(...args);
+  //     }, delay);
+  //   };
+  // };
 
-  let booksData;
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
-  if (status) {
-    booksData = data?.data?.filter(
-      (item: { status: boolean; price: number }) =>
-        item.status === true && item.price < priceRange
-    );
-  } else if (priceRange > 0) {
-    booksData = data?.data?.filter(
-      (item: { price: number }) => item.price < priceRange
-    );
-  } else {
-    booksData = data?.data;
+  if (isLoading) {
+    return <Loader />;
   }
 
+  // if (data?.data.length === 0) {
+  //   return (
+  //     <p className="text-2xl my-32 font-semibold text-center">
+  //       There is no book on wishlist. Please add book to wishlist
+  //     </p>
+  //   );
+  // }
+
   return (
-    <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20">
-      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start sticky top-[84px] h-[calc(100vh-100px)]">
+    <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20 pt-5">
+      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
         {/* Search form */}
-        <div className="mb-5">
+        {/* <div className="mb-5">
           <form className="relative">
             <input
-              // onChange={debounce(handleSearch, 300)}
-              className="rounded-md w-full pl-9 py-1 border-2 border-slate-300 focus:border-slate-400 focus:outline-none"
+              onChange={debounce(handleSearch, 300)}
+              className="rounded-md w-full pl-9 py-1 border border-slate-200 hover:border-slate-300 focus:border-violet-300 focus:ring-violet-300"
               type="search"
               placeholder="Search book"
             />
@@ -63,10 +90,42 @@ export default function Wishlist() {
               </svg>
             </button>
           </form>
-        </div>
-        {/* Filters */}
+        </div> */}
 
-        <div>
+        {/* Filters */}
+        <div className="">
+          <h1 className="text-xl uppercase">Filters</h1>
+          <div className="mt-3 space-y-2 max-h-[calc(100vh-229px)] overflow-auto scrollbar-none">
+            {filtersData.map((fd) => (
+              <AccordionBasic key={fd.title} title={fd.title}>
+                <ul className="space-y-2">
+                  {fd.options.map((o) => (
+                    <li key={o}>
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          checked={fd.title === "Status" && status === o}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              fd.title === "Status" && setStatus(o);
+                            } else {
+                              fd.title === "Status" && setStatus("");
+                            }
+                          }}
+                          type="checkbox"
+                          className="h-4 w-4 border border-gray-500 rounded text-violet-500 focus:ring-transparent cursor-pointer"
+                        />
+                        <span className="text-sm text-slate-600 font-medium ml-2">
+                          {o}
+                        </span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionBasic>
+            ))}
+          </div>
+        </div>
+        {/* <div>
           <h1 className="text-2xl uppercase">Availability</h1>
           <div
             className="flex items-center space-x-2 mt-3"
@@ -88,13 +147,19 @@ export default function Wishlist() {
             />
           </div>
           <div>From 0$ To {priceRange}$</div>
+        </div> */}
+      </div>
+      {data?.data.length === 0 ? (
+        <p className="col-span-9 text-2xl my-32 font-semibold text-center">
+          There is no book on wishlist. Please add book to wishlist
+        </p>
+      ) : (
+        <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20">
+          {data?.data?.map((book: IWishlist) => (
+            <BookCard book={book.book} key={book._id} status={book.status} />
+          ))}
         </div>
-      </div>
-      <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20 pt-5">
-        {booksData?.map((book: IBook) => (
-          <BookCard book={book} key={book._id} />
-        ))}
-      </div>
+      )}
     </div>
   );
 }

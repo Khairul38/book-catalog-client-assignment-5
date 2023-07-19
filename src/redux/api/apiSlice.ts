@@ -3,7 +3,7 @@ import { userLoggedOut } from "../features/auth/authSlice";
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://book-catalog-server-assignment-5.vercel.app/api/v1",
+  baseUrl: "http://localhost:5000/api/v1",
   prepareHeaders: async (headers, { getState }) => {
     const token = (getState() as RootState)?.auth?.accessToken;
     if (token) {
@@ -26,6 +26,6 @@ export const apiSlice = createApi({
     }
     return result;
   },
-  tagTypes: ["reviews", "book", "books"],
+  tagTypes: ["reviews", "book", "books", "wishlist", "wishlists"],
   endpoints: () => ({}),
 });
