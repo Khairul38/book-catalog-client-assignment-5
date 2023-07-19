@@ -59,8 +59,6 @@ export default function Books() {
     publicationYear,
   });
 
-  console.log(searchTerm, genre, publicationYear, data);
-
   const debounce = <T extends (...args: any[]) => void>(
     fn: T,
     delay: number
@@ -82,13 +80,6 @@ export default function Books() {
     return <Loader />;
   }
 
-  // if (data?.data.length === 0) {
-  //   return (
-  //     <p className="text-2xl my-32 font-semibold text-center">
-  //       There is no book. Please add new book
-  //     </p>
-  //   );
-  // }
   return (
     <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20 pt-5">
       <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
@@ -160,29 +151,6 @@ export default function Books() {
             ))}
           </div>
         </div>
-        {/* <div>
-          <h1 className="text-2xl uppercase">Availability</h1>
-          <div
-            className="flex items-center space-x-2 mt-3"
-            onClick={() => dispatch(toggleState())}
-          >
-            <Switch id="in-stock" />
-            <Label htmlFor="in-stock">In stock</Label>
-          </div>
-        </div>
-        <div className="space-y-3 ">
-          <h1 className="text-2xl uppercase">Price Range</h1>
-          <div className="max-w-xl">
-            <Slider
-              defaultValue={[150]}
-              max={150}
-              min={0}
-              step={1}
-              onValueChange={(value) => handleSlider(value)}
-            />
-          </div>
-          <div>From 0$ To {priceRange}$</div>
-        </div> */}
       </div>
       {data?.data.length === 0 ? (
         <p className="col-span-9 text-2xl my-32 font-semibold text-center">

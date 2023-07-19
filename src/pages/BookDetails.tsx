@@ -1,6 +1,5 @@
 import ProductReview from "@/components/BookReview";
 import { UpdateDropdown } from "@/components/UpdateDropdown";
-import AccordionBasic from "@/components/ui/AccordionBasic";
 import Loader from "@/components/ui/Loader";
 import { notify } from "@/components/ui/Toastify";
 import { Button } from "@/components/ui/button";
@@ -11,8 +10,6 @@ import {
 import { useGetSingleWishlistQuery } from "@/redux/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { useEffect, useState } from "react";
-// import { IBook } from "@/types/globalTypes";
-// import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const options = [
@@ -27,8 +24,6 @@ export default function BookDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [status, setStatus] = useState<string>("");
-
   const { user } = useAppSelector((state) => state.auth);
 
   const { data: wishlisted } = useGetSingleWishlistQuery(id);
@@ -40,8 +35,6 @@ export default function BookDetails() {
   const handleDelete = () => {
     deleteBook(id);
   };
-
-  console.log(wishlisted);
 
   useEffect(() => {
     if (isSuccess) {

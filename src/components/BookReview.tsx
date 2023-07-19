@@ -23,16 +23,12 @@ export default function BookReview({ id }: IProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const from = location.state?.from?.pathname || "/";
-
   const { user } = useAppSelector((state) => state.auth);
 
   const { data, isLoading } = useGetReviewsQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 60000,
   });
-
-  console.log(data);
 
   const [postReview, { isLoading: postLoading, isSuccess }] =
     usePostReviewMutation();

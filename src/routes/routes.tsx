@@ -4,7 +4,6 @@ import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import Books from "@/pages/Books";
-// import Checkout from "@/pages/Checkout";
 import Signup from "@/pages/Signup";
 import BookDetails from "@/pages/BookDetails";
 import PrivateRoute from "./PrivateRoute";

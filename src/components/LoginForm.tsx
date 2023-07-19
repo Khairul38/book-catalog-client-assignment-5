@@ -30,7 +30,6 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
   } = useForm<LoginFormInputs>();
 
   const [login, { data, isLoading, error: resError }] = useLoginMutation();
-  console.log(resError);
   const isLoggedIn = useAuth();
 
   const location = useLocation();
@@ -39,7 +38,6 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
   const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data: LoginFormInputs) => {
-    console.log(data);
     login({ email: data.email, password: data.password });
   };
 
@@ -53,7 +51,6 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     if (data?.data?.accessToken) {
       notify("success", "User login successfully");
       navigate(from, { replace: true });
-      // navigate("/");
     }
   }, [data, resError]);
 

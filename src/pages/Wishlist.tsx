@@ -31,8 +31,6 @@ export default function Wishlist() {
 
   const { data, isLoading } = useGetWishlistByUserQuery({ status });
 
-  console.log(data);
-
   // const debounce = <T extends (...args: any[]) => void>(
   //   fn: T,
   //   delay: number
@@ -53,14 +51,6 @@ export default function Wishlist() {
   if (isLoading) {
     return <Loader />;
   }
-
-  // if (data?.data.length === 0) {
-  //   return (
-  //     <p className="text-2xl my-32 font-semibold text-center">
-  //       There is no book on wishlist. Please add book to wishlist
-  //     </p>
-  //   );
-  // }
 
   return (
     <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20 pt-5">

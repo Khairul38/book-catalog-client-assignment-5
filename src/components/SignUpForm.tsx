@@ -28,7 +28,6 @@ interface SignupFormInputs {
 export function SignupForm({ className, ...props }: UserAuthFormProps) {
   const [signup, { data, isLoading, error: resError }] = useSignupMutation();
 
-  console.log(data, resError);
   const {
     register,
     handleSubmit,
@@ -57,10 +56,8 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
   }, [data, resError]);
 
   const onSubmit = (data: SignupFormInputs) => {
-    console.log(data);
 
     if (data.password !== data.confirmPassword) {
-      console.log("first");
       notify("error", "Password do not match");
     } else {
       signup({

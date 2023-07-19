@@ -5,25 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
   useAddSingleBookMutation,
-  useGetSingleBookQuery,
-  useUpdateBookMutation,
 } from "@/redux/features/book/bookApi";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AddBook() {
-  // const { id } = useParams();
 
   const { user } = useAppSelector((state) => state.auth);
-  // const location = useLocation();
   const navigate = useNavigate();
-
-  // const from = location.state?.from?.pathname || "/";
-
-  // const { data, isLoading } = useGetSingleBookQuery(id);
   const [addSingleBook, { isLoading, isSuccess, error }] =
     useAddSingleBookMutation();
 
@@ -34,7 +26,6 @@ export default function AddBook() {
   } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
-    console.log(data);
     addSingleBook({
       ...data,
       rating: Number(data.rating),
@@ -43,7 +34,6 @@ export default function AddBook() {
       reviews: [],
     });
   };
-  console.log(error);
   useEffect(() => {
     if (error) {
       notify("error", (error as any)?.data.message);

@@ -7,7 +7,6 @@ import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
 } from "@/redux/features/book/bookApi";
-import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -31,13 +30,11 @@ export default function EditBook() {
   } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
-    console.log(data);
     updateBook({
       id,
       data: { ...data, rating: Number(data.rating), price: Number(data.price) },
     });
   };
-  console.log(data, error, isSuccess, from);
   useEffect(() => {
     if (error) {
       notify("error", (error as any)?.data.message);

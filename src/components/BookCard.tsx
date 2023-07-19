@@ -1,9 +1,6 @@
 import { IBook } from "@/types/globalTypes";
-// import { toast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useAppDispatch } from "@/redux/hooks";
-// import { addToCart } from "@/redux/features/cart/cartSlice";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { notify } from "./ui/Toastify";
 import { useEffect } from "react";
@@ -47,8 +44,6 @@ export default function BookCard({ book, status }: IProps) {
   const handleRemoveFromWishlist = (id: string) => {
     deleteWishlist(id);
   };
-
-  console.log(book, user, data);
 
   useEffect(() => {
     if (addSuccess) {

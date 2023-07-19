@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,8 +12,6 @@ import {
 import { useUpdateWishlistMutation } from "@/redux/features/wishlist/wishlistApi";
 import { notify } from "./ui/Toastify";
 import Loader from "./ui/Loader";
-
-type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 interface IProp {
   options: string[];
