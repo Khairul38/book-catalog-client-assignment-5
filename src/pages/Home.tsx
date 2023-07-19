@@ -42,7 +42,7 @@ export default function Home() {
           {data === undefined ? (
             <Loader />
           ) : (
-            <div className="col-span- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-20 xl:gap-10 py-20">
+            <div className="col-span- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-20 xl:gap-10 2xl:gap-24 py-20">
               {[...data.data]
                 .sort((a, b) => b.rating - a.rating)
                 .slice(0, 10)

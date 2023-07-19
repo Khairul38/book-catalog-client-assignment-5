@@ -144,7 +144,7 @@ export default function Wishlist() {
           There is no book on wishlist. Please add book to wishlist
         </p>
       ) : (
-        <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 pb-20">
+        <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 2xl:gap-24 pb-20">
           {data?.data?.map((book: IWishlist) => (
             <BookCard book={book.book} key={book._id} status={book.status} />
           ))}
