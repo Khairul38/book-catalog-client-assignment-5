@@ -22,8 +22,6 @@ interface IProp {
 }
 
 export function UpdateDropdown({ options, status, wishlistId }: IProp) {
-  const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
-
   const [updateWishlist, { isSuccess }] = useUpdateWishlistMutation();
 
   const handleUpdateStatus = (data: string) => {
