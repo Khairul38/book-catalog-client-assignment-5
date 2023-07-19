@@ -92,7 +92,7 @@ export default function BookDetails() {
                 >
                   Edit
                 </Button>
-                <Button onClick={handleDelete}>
+                <Button onClick={handleDelete} className="w-[73px">
                   {deleteLoading ? <Loader color="text-white" /> : "Delete"}
                 </Button>
               </>

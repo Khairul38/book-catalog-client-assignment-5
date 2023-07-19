@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useUpdateWishlistMutation } from "@/redux/features/wishlist/wishlistApi";
 import { notify } from "./ui/Toastify";
+import Loader from "./ui/Loader";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
@@ -22,10 +23,10 @@ interface IProp {
 }
 
 export function UpdateDropdown({ options, status, wishlistId }: IProp) {
-  const [updateWishlist, { isSuccess }] = useUpdateWishlistMutation();
+  const [updateWishlist, { isSuccess, isLoading }] =
+    useUpdateWishlistMutation();
 
   const handleUpdateStatus = (data: string) => {
-    console.log(wishlistId, data);
     updateWishlist({ id: wishlistId, data: { status: data } });
   };
 
@@ -38,7 +39,9 @@ export function UpdateDropdown({ options, status, wishlistId }: IProp) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>Update Status</Button>
+        <Button className="w-[121.13px]">
+          {isLoading ? <Loader color="text-white" /> : "Update Status"}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         {options.map((option: string) => (

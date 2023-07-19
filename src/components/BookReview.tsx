@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
@@ -12,6 +12,7 @@ import Loader from "./ui/Loader";
 import avatar from "../assets/images/avatar-04.jpg";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { useLocation, useNavigate } from "react-router-dom";
+import { notify } from "./ui/Toastify";
 
 interface IProps {
   id: string;
@@ -33,7 +34,8 @@ export default function BookReview({ id }: IProps) {
 
   console.log(data);
 
-  const [postReview] = usePostReviewMutation();
+  const [postReview, { isLoading: postLoading, isSuccess }] =
+    usePostReviewMutation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,6 +60,10 @@ export default function BookReview({ id }: IProps) {
     setInputValue(event.target.value);
   };
 
+  useEffect(() => {
+    if (isSuccess) return notify("success", "Review send successfully");
+  }, [isSuccess]);
+
   if (isLoading) return <Loader />;
 
   return (
@@ -72,7 +78,7 @@ export default function BookReview({ id }: IProps) {
           type="submit"
           className="rounded-full h-10 w-10 p-2 text-[25px]"
         >
-          <FiSend />
+          {postLoading ? <Loader color="text-white" /> : <FiSend />}
         </Button>
       </form>
       <div className="mt-10">
