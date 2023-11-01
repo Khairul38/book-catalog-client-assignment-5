@@ -69,6 +69,7 @@ export default function BookReview({ id }: IProps) {
           className="min-h-[30px]"
           onChange={handleChange}
           value={inputValue}
+          placeholder="Please provide your review..."
         />
         <Button
           type="submit"
