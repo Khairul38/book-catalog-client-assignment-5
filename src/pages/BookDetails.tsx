@@ -113,9 +113,7 @@ export default function BookDetails() {
         </div>
         <div className="h-[80vh] pb-10">
           <Viewer
-            fileUrl={
-              "https://drive.google.com/file/d/1iYB1DMtezjIXjmPVU_Fc8U_CLepxlio3/view"
-            }
+            fileUrl={pdf}
             plugins={[defaultLayoutPluginInstance]}
             // httpHeaders={{
             //   key: value,
