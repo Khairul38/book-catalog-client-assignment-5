@@ -113,7 +113,9 @@ export default function BookDetails() {
         </div>
         <div className="h-[80vh] pb-10">
           <Viewer
-            fileUrl={"https://storage2.bdebooks.com/5f3f9e3f62d60515"}
+            fileUrl={
+              "https://drive.google.com/file/d/1iYB1DMtezjIXjmPVU_Fc8U_CLepxlio3/view"
+            }
             plugins={[defaultLayoutPluginInstance]}
             // httpHeaders={{
             //   key: value,
