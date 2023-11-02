@@ -23,9 +23,11 @@ export default function BookCard({ book, status }: IProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { data } = useGetSingleWishlistQuery(book._id);
+  const { data } = useGetSingleWishlistQuery(book._id, {
+    skip: user ? false : true,
+  });
 
-  const [addWishlist, { isLoading: addLoading, isSuccess: addSuccess }] =
+  const [addWishlist, { isLoading: addLoading, isSuccess: addSuccess, error }] =
     useAddWishlistMutation();
 
   const [
@@ -56,6 +58,12 @@ export default function BookCard({ book, status }: IProps) {
       notify("success", "Wishlist remove successfully");
     }
   }, [deleteSuccess]);
+  
+  useEffect(() => {
+    if (error) {
+      notify("error", (error as any)?.data?.message);
+    }
+  }, [error]);
   return (
     <div>
       <div className="rounded-xl h-[566px] flex flex-col justify-between p-4 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-1">

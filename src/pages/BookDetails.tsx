@@ -1,4 +1,4 @@
-import ProductReview from "@/components/BookReview";
+import BookReview from "@/components/BookReview";
 import { UpdateDropdown } from "@/components/UpdateDropdown";
 import Loader from "@/components/ui/Loader";
 import { notify } from "@/components/ui/Toastify";
@@ -74,17 +74,20 @@ export default function BookDetails() {
               Publication Year: {data?.data?.publicationYear}
             </p>
             <p className="text-xl">Rating: {data?.data?.rating}</p>
-            <p className="text-xl">Description: {data?.data?.description}</p>
+            <p className="text-xl line-clamp-6">
+              Description: {data?.data?.description}
+            </p>
             {user && wishlisted?.data?.status && (
-              <p className="text-xl">
+              <p className="text-xl pb-2">
                 Status:{" "}
                 <span className="text-violet-500 font-semibold">
                   {wishlisted?.data?.status}
                 </span>
               </p>
             )}
-            <div className="flex space-x-3 pt-2">
-              {data?.data?.postedBy === user?._id && (
+            <div className="flex space-x-3">
+              {(data?.data?.postedBy === user?._id ||
+                user?.role === "admin") && (
                 <>
                   <Button
                     onClick={() =>
@@ -111,7 +114,10 @@ export default function BookDetails() {
             </div>
           </div>
         </div>
-        <div className="h-[80vh] pb-10">
+        <div className="h-[75vh] mb-24">
+          <p className="pt-2 pb-4 text-violet-500 text- text-2xl font-bold">
+            READ ONLINE
+          </p>
           <Viewer
             fileUrl={pdf}
             plugins={[defaultLayoutPluginInstance]}
@@ -122,7 +128,9 @@ export default function BookDetails() {
           />
         </div>
       </div>
-      <ProductReview id={id!} />
+      <div>
+        <BookReview id={id!} />
+      </div>
     </div>
   );
 }

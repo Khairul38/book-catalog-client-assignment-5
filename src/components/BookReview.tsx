@@ -69,11 +69,12 @@ export default function BookReview({ id }: IProps) {
           className="min-h-[30px]"
           onChange={handleChange}
           value={inputValue}
-          placeholder="Please provide your review..."
+          placeholder="Share your thoughts..."
         />
         <Button
           type="submit"
-          className="rounded-full h-10 w-10 p-2 text-[25px]"
+          className={`rounded-full h-10 w-10 p-2 text-[25px]`}
+          disabled={inputValue.length === 0 && true}
         >
           {postLoading ? <Loader color="text-white" /> : <FiSend />}
         </Button>

@@ -17,10 +17,10 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: async (args, api, extraOptions) => {
     const result = await baseQuery(args, api, extraOptions);
-    if (result?.error?.status === 401 || result?.error?.status === 404) {
-      api.dispatch(userLoggedOut());
-      localStorage.clear();
-    }
+    // if (result?.error?.status === 401 || result?.error?.status === 404) {
+    //   api.dispatch(userLoggedOut());
+    //   localStorage.clear();
+    // }
     return result;
   },
   tagTypes: ["reviews", "book", "books", "wishlist", "wishlists"],
