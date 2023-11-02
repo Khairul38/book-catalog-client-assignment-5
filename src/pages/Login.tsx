@@ -41,11 +41,11 @@ export default function Login() {
                 Login to your account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below
+                Enter your email & password below
               </p>
             </div>
             <LoginForm />
-            <p className="px-8 text-center text-sm text-muted-foreground">
+            {/* <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
                 to="/terms"
@@ -61,7 +61,7 @@ export default function Login() {
                 Privacy Policy
               </Link>
               .
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { useSignupMutation } from "@/redux/features/auth/authApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -46,7 +46,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       navigate(from, { replace: true });
     }
     if (resError) {
-      notify("error", (resError as any)?.error);
+      notify("error", (resError as any)?.data?.message);
     }
     if (data?.data?.accessToken) {
       notify("success", "User signup successfully");
@@ -56,7 +56,6 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
   }, [data, resError]);
 
   const onSubmit = (data: SignupFormInputs) => {
-
     if (data.password !== data.confirmPassword) {
       notify("error", "Password do not match");
     } else {
@@ -140,7 +139,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
           </Button>
         </div>
       </form>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -157,7 +156,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       >
         <p>Google</p>
         <FcGoogle />
-      </Button>
+      </Button> */}
     </div>
   );
 }

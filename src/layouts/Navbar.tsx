@@ -30,7 +30,9 @@ export default function Navbar() {
       <div className="h-full w-full bg-white/60">
         <div className="flex items-center justify-between w-full h-full mx-auto px-10 xl:px-20">
           <div>
-            <img className="h-12" src={logo} alt="log" />
+            <Link to="/">
+              <img className="h-12" src={logo} alt="logo" />
+            </Link>
           </div>
           <div>
             <ul className="flex items-center">
