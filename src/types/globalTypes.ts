@@ -24,8 +24,8 @@ export interface IBook {
   image: string;
   pdf: object;
   description: string;
-  price: number;
-  rating: number;
+  price: string;
+  rating: string;
   postedBy: string;
   reviews?: IReview[];
   createdAt?: string;

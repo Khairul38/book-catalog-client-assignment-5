@@ -3,9 +3,7 @@ import { notify } from "@/components/ui/Toastify";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  useAddSingleBookMutation,
-} from "@/redux/features/book/bookApi";
+import { useAddSingleBookMutation } from "@/redux/features/book/bookApi";
 import { useAppSelector } from "@/redux/reduxHooks";
 import { IBook } from "@/types/globalTypes";
 import { useEffect } from "react";
@@ -13,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export default function AddBook() {
-
   const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const [addSingleBook, { isLoading, isSuccess, error }] =
@@ -26,14 +23,25 @@ export default function AddBook() {
   } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
-    console.log(data)
-    // addSingleBook({
-    //   ...data,
-    //   rating: Number(data.rating),
-    //   price: Number(data.price),
-    //   postedBy: user?._id,
-    //   reviews: [],
-    // });
+    // console.log(data);
+
+    // const formData = new FormData();
+    // formData.append("title", data.title);
+    // formData.append("author", data.author);
+    // formData.append("genre", data.genre);
+    // formData.append("publicationYear", data.publicationYear);
+    // formData.append("description", data.description);
+    // formData.append("image", data.image);
+    // formData.append("rating", data.rating);
+    // formData.append("price", data.price);
+    // formData.append("postedBy", user && user._id);
+    addSingleBook({
+      ...data,
+      rating: Number(data.rating),
+      price: Number(data.price),
+      postedBy: user?._id,
+      reviews: [],
+    });
   };
   useEffect(() => {
     if (error) {
@@ -185,7 +193,7 @@ export default function AddBook() {
                   <p className="text-red-500">{errors.price.message}</p>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <p className="font-semibold">PDF File</p>
                 <Input
                   className="focus:outline-none"
@@ -200,7 +208,7 @@ export default function AddBook() {
                 {errors.pdf && (
                   <p className="text-red-500">{errors.pdf.message}</p>
                 )}
-              </div>
+              </div> */}
             </div>
             <Button>
               {isLoading ? <Loader color="text-white" /> : "Add New Book"}
