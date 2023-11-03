@@ -26,13 +26,14 @@ export default function AddBook() {
   } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
-    addSingleBook({
-      ...data,
-      rating: Number(data.rating),
-      price: Number(data.price),
-      postedBy: user?._id,
-      reviews: [],
-    });
+    console.log(data)
+    // addSingleBook({
+    //   ...data,
+    //   rating: Number(data.rating),
+    //   price: Number(data.price),
+    //   postedBy: user?._id,
+    //   reviews: [],
+    // });
   };
   useEffect(() => {
     if (error) {
@@ -49,7 +50,7 @@ export default function AddBook() {
         <p className="text-center text-5xl font-semibold mb-10">Add New Book</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-2">
-            <div className="grid gap-2">
+            <div className="grid gap-2 mb-4">
               <div>
                 <p className="font-semibold">Title</p>
                 <Input
@@ -61,7 +62,9 @@ export default function AddBook() {
                   autoCorrect="off"
                   {...register("title", { required: "Title is required" })}
                 />
-                {errors.title && <p>{errors.title.message}</p>}
+                {errors.title && (
+                  <p className="text-red-500">{errors.title.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Author</p>
@@ -74,7 +77,9 @@ export default function AddBook() {
                   autoCorrect="off"
                   {...register("author", { required: "Author is required" })}
                 />
-                {errors.author && <p>{errors.author.message}</p>}
+                {errors.author && (
+                  <p className="text-red-500">{errors.author.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Genre</p>
@@ -87,7 +92,9 @@ export default function AddBook() {
                   autoCorrect="off"
                   {...register("genre", { required: "Genre is required" })}
                 />
-                {errors.genre && <p>{errors.genre.message}</p>}
+                {errors.genre && (
+                  <p className="text-red-500">{errors.genre.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Publication Year</p>
@@ -103,14 +110,16 @@ export default function AddBook() {
                   })}
                 />
                 {errors.publicationYear && (
-                  <p>{errors.publicationYear.message}</p>
+                  <p className="text-red-500">
+                    {errors.publicationYear.message}
+                  </p>
                 )}
               </div>
               <div>
                 <p className="font-semibold">Image</p>
                 <Input
                   id="Image"
-                  placeholder="Image"
+                  placeholder="Image URL"
                   type="text"
                   autoCapitalize="none"
                   autoComplete="none"
@@ -119,7 +128,9 @@ export default function AddBook() {
                     required: "Image is required",
                   })}
                 />
-                {errors.image && <p>{errors.image.message}</p>}
+                {errors.image && (
+                  <p className="text-red-500">{errors.image.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Description</p>
@@ -136,7 +147,9 @@ export default function AddBook() {
                   // onChange={handleChange}
                   // value={inputValue}
                 />
-                {errors.description && <p>{errors.description.message}</p>}
+                {errors.description && (
+                  <p className="text-red-500">{errors.description.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Rating</p>
@@ -151,7 +164,9 @@ export default function AddBook() {
                     required: "Rating is required",
                   })}
                 />
-                {errors.rating && <p>{errors.rating.message}</p>}
+                {errors.rating && (
+                  <p className="text-red-500">{errors.rating.message}</p>
+                )}
               </div>
               <div>
                 <p className="font-semibold">Price</p>
@@ -166,7 +181,25 @@ export default function AddBook() {
                     required: "Price is required",
                   })}
                 />
-                {errors.price && <p>{errors.price.message}</p>}
+                {errors.price && (
+                  <p className="text-red-500">{errors.price.message}</p>
+                )}
+              </div>
+              <div>
+                <p className="font-semibold">PDF File</p>
+                <Input
+                  className="focus:outline-none"
+                  id="PDF"
+                  placeholder="PDF"
+                  type="file"
+                  accept=".pdf"
+                  {...register("pdf", {
+                    required: "PDF File is required",
+                  })}
+                />
+                {errors.pdf && (
+                  <p className="text-red-500">{errors.pdf.message}</p>
+                )}
               </div>
             </div>
             <Button>

@@ -22,6 +22,7 @@ export interface IBook {
   genre: string;
   publicationYear: string;
   image: string;
+  pdf: object;
   description: string;
   price: number;
   rating: number;
