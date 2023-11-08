@@ -1,54 +1,13 @@
 import BookCard from "@/components/BookCard";
 import AccordionBasic from "@/components/ui/AccordionBasic";
 import Loader from "@/components/ui/Loader";
+import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/features/book/bookApi";
 import { IBook } from "@/types/globalTypes";
-import { useState } from "react";
-
-const filtersData = [
-  {
-    title: "Genre",
-    options: [
-      "Computer and Programming",
-      "Motivational",
-      "Self-Development",
-      "Fiction",
-      "Islamic",
-      "Fantasy romance",
-      "Science Fiction",
-      "Novels",
-      "Liberation War",
-      "Story",
-      "Romantic, Novels",
-      "Poetry",
-      "Essay",
-    ],
-  },
-  {
-    title: "Publication Year",
-    options: [
-      "2022",
-      "2018",
-      "2017",
-      "2016",
-      "2009",
-      "2008",
-      "1998",
-      "1995",
-      "1985",
-      "1976",
-      "1948",
-      "1935",
-      "1929",
-      "1922",
-      "1920",
-      "1903",
-      "1866",
-    ],
-  },
-];
+import { Key, useEffect, useState } from "react";
 
 export default function Books() {
+  const [filtersData, setFiltersData] = useState<any>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [genre, setGenre] = useState<string>("");
   const [publicationYear, setPublicationYear] = useState<string>("");
@@ -58,6 +17,33 @@ export default function Books() {
     genre,
     publicationYear,
   });
+
+  useEffect(() => {
+    if (data && filtersData.length === 0) {
+      const genreOptions = data.data
+        .map((bData: IBook) => bData.genre)
+        .filter((value: string, index: number, self: string[]) => {
+          return self.indexOf(value) === index;
+        })
+        .sort((a: string | any[], b: string | any[]) => {
+          for (let i = 0; i < Math.min(a.length, b.length); i++) {
+            if (a[i] < b[i]) return -1;
+            if (a[i] > b[i]) return 1;
+          }
+          return a.length - b.length;
+        });
+      const publicationYearOptions = data.data
+        .map((bData: IBook) => Number(bData.publicationYear))
+        .filter((value: number, index: number, self: number[]) => {
+          return self.indexOf(value) === index;
+        })
+        .sort((a: number, b: number) => b - a);
+      setFiltersData([
+        { title: "Genre", options: genreOptions },
+        { title: "Publication Year", options: publicationYearOptions },
+      ]);
+    }
+  }, [data]);
 
   const debounce = <T extends (...args: any[]) => void>(
     fn: T,
@@ -76,19 +62,32 @@ export default function Books() {
     setSearchTerm(e.target.value);
   };
 
-  if (isLoading) {
+  if (isLoading || filtersData.length === 0) {
     return <Loader />;
   }
 
   return (
     <div className="grid grid-cols-12 mx-auto relative px-10 xl:px-20 pt-5">
       <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-4 self-start sticky top-[84px] h-[calc(100vh-100px)]">
+        <div className="flex justify-between items-center">
+          <h1 className="text-lg font-bold uppercase">Filters</h1>
+          <Button
+            size={"sm"}
+            onClick={() => {
+              setSearchTerm("");
+              setGenre("");
+              setPublicationYear("");
+            }}
+          >
+            Reset
+          </Button>
+        </div>
         {/* Search form */}
-        <div className="mb-5">
+        <div>
           <form className="relative">
             <input
               onChange={debounce(handleSearch, 300)}
-              className="rounded-md w-full pl-9 py-1 border border-slate-200 hover:border-slate-300 focus:border-violet-300 focus:ring-violet-300"
+              className="rounded-md w-full pl-9 py-3 border border-slate-200 hover:border-slate-300 focus:border-violet-300 focus:ring-violet-300"
               type="search"
               placeholder="Search book"
             />
@@ -111,10 +110,9 @@ export default function Books() {
         </div>
 
         {/* Filters */}
-        <div className="">
-          <h1 className="text-xl uppercase">Filters</h1>
-          <div className="mt-3 space-y-2 max-h-[calc(100vh-229px)] overflow-auto scrollbar-none">
-            {filtersData.map((fd) => (
+        <div>
+          <div className="space-y-2 max-h-[calc(100vh-229px)] overflow-auto scrollbar-none">
+            {filtersData.map((fd: { title: string; options: any[] }) => (
               <AccordionBasic key={fd.title} title={fd.title}>
                 <ul className="space-y-2">
                   {fd.options.map((o) => (
@@ -124,13 +122,13 @@ export default function Books() {
                           checked={
                             (fd.title === "Genre" && genre === o) ||
                             (fd.title === "Publication Year" &&
-                              publicationYear === o)
+                              publicationYear === o.toString())
                           }
                           onChange={(e) => {
                             if (e.target.checked) {
                               fd.title === "Genre"
                                 ? setGenre(o)
-                                : setPublicationYear(o);
+                                : setPublicationYear(o.toString());
                             } else {
                               fd.title === "Genre"
                                 ? setGenre("")

@@ -84,7 +84,7 @@ export default function Wishlist() {
 
         {/* Filters */}
         <div className="">
-          <h1 className="text-xl uppercase">Filters</h1>
+          <h1 className="text-lg font-bold uppercase">Filters</h1>
           <div className="mt-3 space-y-2 max-h-[calc(100vh-229px)] overflow-auto scrollbar-none">
             {filtersData.map((fd) => (
               <AccordionBasic key={fd.title} title={fd.title}>
@@ -141,7 +141,7 @@ export default function Wishlist() {
       </div>
       {data?.data.length === 0 ? (
         <p className="col-span-9 text-2xl my-32 font-semibold text-center">
-          There is no book on wishlist. Please add book to wishlist
+          There is no book on the wishlist. Please add a book to the wishlist
         </p>
       ) : (
         <div className="col-span-9 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-20 xl:gap-10 2xl:gap-24 pb-20">
