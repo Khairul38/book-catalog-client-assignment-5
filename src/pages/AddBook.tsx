@@ -26,14 +26,14 @@ export default function AddBook() {
   } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
-    console.log(data)
-    // addSingleBook({
-    //   ...data,
-    //   rating: Number(data.rating),
-    //   price: Number(data.price),
-    //   postedBy: user?._id,
-    //   reviews: [],
-    // });
+    // console.log(data)
+    addSingleBook({
+      ...data,
+      rating: Number(data.rating),
+      price: Number(data.price),
+      postedBy: user?._id,
+      reviews: [],
+    });
   };
   useEffect(() => {
     if (error) {
@@ -185,7 +185,7 @@ export default function AddBook() {
                   <p className="text-red-500">{errors.price.message}</p>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <p className="font-semibold">PDF File</p>
                 <Input
                   className="focus:outline-none"
@@ -200,7 +200,7 @@ export default function AddBook() {
                 {errors.pdf && (
                   <p className="text-red-500">{errors.pdf.message}</p>
                 )}
-              </div>
+              </div> */}
             </div>
             <Button>
               {isLoading ? <Loader color="text-white" /> : "Add New Book"}

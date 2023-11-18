@@ -120,6 +120,9 @@ export default function BookDetails() {
           </p>
           <Viewer
             fileUrl={pdf}
+            // fileUrl={
+            //   "https://drive.google.com/uc?id=1iYB1DMtezjIXjmPVU_Fc8U_CLepxlio3"
+            // }
             plugins={[defaultLayoutPluginInstance]}
             // httpHeaders={{
             //   key: value,
