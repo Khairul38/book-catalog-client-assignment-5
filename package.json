@@ -45,7 +45,7 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
-    "firebase": "^10.0.0",
+    "firebase": "^10.14.1",
     "jwt-decode": "^3.1.2",
     "lucide-react": "^0.233.0",
     "pdfjs-dist": "^3.4.120",
